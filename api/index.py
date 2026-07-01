@@ -8,9 +8,11 @@ from groq import Groq
 # Map variables from environmental configurations
 load_dotenv()
 
-# Resolve the absolute path to the templates folder dynamically to ensure reliable asset lookup on Vercel
+# Fixed dynamic lookup that aligns perfectly with Vercel's serverless compilation environment
 base_dir = os.path.dirname(os.path.abspath(__file__))
-template_dir = os.path.join(base_dir, '../templates')
+template_dir = os.path.abspath(os.path.join(base_dir, "templates"))
+
+# Initialize Flask with the explicitly resolved absolute path
 app = Flask(__name__, template_folder=template_dir)
 
 # Establish clean Groq validation initialization layers
